@@ -60,6 +60,7 @@ Or being able to [embed images and words in a joint space](http://arxiv.org/abs/
 
 ![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/multimodalEmbed.png)
 
+Yep that's a multimodal vector describing a blue car minus the multimodal vector for the word "blue", plus the vector for "red" resulting in a vector that is [near images of red cars](https://media.giphy.com/media/EldfH1VJdbrwY/giphy.gif).
 
 ### When should I use these features?
 Take advice from [here](http://cs231n.github.io/transfer-learning/#tf) (actually go read the entire course, it's amazing).
