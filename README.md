@@ -34,7 +34,7 @@ th -main.lua -data [tab separated file of (image_id, path_to_image_on_disk)] -ou
 - [loadcaffe](https://github.com/szagoruyko/loadcaffe)
 
 
-### Why should I care about deep convnet features in the first place?
+### Why should I care about pre-trained deep convnet features in the first place?
 - **They're powerful and transferable**: [Razavian et. al.](http://arxiv.org/pdf/1403.6382v3.pdf) show that these kinds of deep features can be used off-the-shelf to beat highly tuned state-of-the-art methods on challenging fine grained classification problems. That is, you can use the same features that distinguish a boat from a motorcycle to accurately tell two species of birds apart, even when the differences between species are extremely subtle. They show superior results to traditional feature representations (like SIFT, HOG, visual bag of words).
 - **They're interpretable**: [Zeiler and Fergus](http://arxiv.org/abs/1311.2901) shows that the learned represnetaions are far from a black box. They're actually quite interpretable: lower layers of the network learn filters that fire when they see color blobs, edges, lines, corners.
 
