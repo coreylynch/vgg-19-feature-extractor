@@ -3,11 +3,8 @@ require 'json'
 
 file = io.open(opt.outFile,'w')
 
-local timer = torch.Timer()
-
 function extract()
    cutorch.synchronize()
-   timer:reset()
 
    for i=1, nExtract/opt.batchSize do -- nExtract is set in data.lua
       collectgarbage()

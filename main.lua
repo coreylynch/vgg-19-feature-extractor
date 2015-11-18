@@ -1,5 +1,4 @@
 require 'torch'
--- require 'cutorch'
 require 'paths'
 require 'xlua'
 require 'nn'
