@@ -25,7 +25,7 @@ specified by the ```-outFile``` flag.
 
 Example:
 ```bash
-th -main.lua -data [tab separated file of (image_id, path_to_image_on_disk)] -outFile out_vecs -nThreads 8 -batchSize 128
+th main.lua -data [tab separated file of (image_id, path_to_image_on_disk)] -outFile out_vecs -nThreads 8 -batchSize 128
 ```
 
 ### Requirements
