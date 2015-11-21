@@ -38,11 +38,11 @@ th main.lua -data [tab separated file of (image_id, path_to_image_on_disk)] -out
 - **They're powerful and transferable**: [Razavian et. al.](http://arxiv.org/pdf/1403.6382v3.pdf) show that these kinds of deep features can be used off-the-shelf to beat highly tuned state-of-the-art methods on challenging fine grained classification problems. That is, you can use the same features that distinguish a boat from a motorcycle to accurately tell two species of birds apart, even when the differences between species are extremely subtle. They show superior results to traditional feature representations (like SIFT, HOG, visual bag of words).
 - **They're interpretable**: [Zeiler and Fergus](http://arxiv.org/abs/1311.2901) shows that the learned representations are far from a black box. They're actually quite interpretable: lower layers of the network learn filters that fire when they see color blobs, edges, lines, corners.
 
-![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/LowerLayers.png)
+![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/MiddleLayers.png)
 
 Middle layers see combinations of these lower level features, forming filters that respond to common textures. 
 
-![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/MiddleLayers.png)
+![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/LowerLayers.png)
 
 Higher layers see combinations of these middle layers, forming filters that respond to object parts, and so on. 
 
