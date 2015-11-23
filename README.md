@@ -54,7 +54,7 @@ You can see the actual content of the image becoming increasingly explicit along
 - **They're cheap**: You only need to do one forward pass on a pre-trained net to get them.
 - **They're the go-to visual component in some pretty incredible new machine vision applications**: like [automatically](http://cs.stanford.edu/people/karpathy/deepimagesent/) [describing](http://arxiv.org/abs/1411.4555) [images](http://arxiv.org/abs/1412.6632) from raw pixels. 
 
-![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/captioning.png)
+![](https://github.com/coreylynch/vgg-19-feature-extractor/blob/master/resources/pretrained.png)
 
 Or being able to [embed images and words in a joint space](http://arxiv.org/abs/1411.2539) then do vector arithmetic in the learned space:
 
