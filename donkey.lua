@@ -19,7 +19,7 @@ local function loadImage(path, scale)
 end
 
 -- VGG preprocessing
-local bgr_means = {123.68,116.779,103.939}
+local bgr_means = {103.939,116.779,123.68}
 local function vggPreprocess(img)
   local im2 = img:clone()
   im2[{1,{},{}}] = img[{3,{},{}}]
