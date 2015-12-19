@@ -3,7 +3,7 @@
 ### Overview
 This allows you to extract deep visual features from a pre-trained [VGG-19 net](http://arxiv.org/abs/1409.1556) for collections of images in the millions. Images are loaded and preprocessed in parallel using multiple CPU threads then shipped to the GPU in minibatches for the forward pass through the net. Model weights are downloaded for you and loaded using Torch's loadcaffe library, so you don't need to compile Caffe.
 
-The feature extractor computes a 4096 dimensional feature vector for every image that contains the activations of the hidden layer immediately before the VGG's object classifier. The activations are ReLU-ed and L2-normalized, which means they be used as generic off-the-shelf features for tasks like classification or [image similarity](http://arxiv.org/abs/1505.07647).
+The feature extractor computes a 4096 dimensional feature vector for every image that contains the activations of the hidden layer immediately before the VGG's object classifier. The activations are ReLU-ed and L2-normalized, which means they can be used as generic off-the-shelf features for tasks like classification or [image similarity](http://arxiv.org/abs/1505.07647).
 
 ### Example usage
 You point it a tab separated file of (image_id, path to image on disk) e.g.
