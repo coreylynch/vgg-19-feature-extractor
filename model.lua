@@ -1,8 +1,9 @@
 require 'nn'
 require 'optim'
 require 'loadcaffe'
-require 'ccn2'
 require 'util'
+require 'cunn'
+
 
 if not paths.dirp('model_weights') then
 	print('=> Downloading VGG 19 model weights')
@@ -12,11 +13,6 @@ if not paths.dirp('model_weights') then
   os.execute('wget --output-document model_weights/VGG_ILSVRC_19_layers.caffemodel ' .. caffemodel_url)
   os.execute('wget --output-document model_weights/VGG_ILSVRC_19_layers_deploy.prototxt ' .. proto_url)
 end
---opt ={}
---opt.backend = "cunn"
---opt.nGPU = 1
---nGPU = opt.nGPU 
---opt.GPU = 1
 --[[
    1. Load pre-trained model
    2. Remove last layer
@@ -31,6 +27,9 @@ function getPretrainedModel(nGPU)
   elseif opt.backend == 'cunn' then
       require 'cunn'
       print('using cunn backend')
+  elseif opt.backend == 'ccn2' then 
+      require 'ccn2'
+      print('using ccn2')
   else
       error('unrecognized backend: ' .. backend)
   end
@@ -47,26 +46,23 @@ function getPretrainedModel(nGPU)
 		inputModel.modules[#inputModel.modules] = nil 
 	end
 
-  --features = nn.Sequential() ; j=1; for i=40,45 do features:add(model.modules[i]) ; end
-  --j=45 ; for i=1,6 do model:remove(j) ; j=j-1; end
 
   --final model
   model = nn.Sequential() ;
   
   features = nn.Sequential() ;
   classifier = nn.Sequential() ;
-  
+   
+  --return modules for them to be parallelized in the next step   
   features,classifier = modelParallel(inputModel)
- 
   features:cuda()
+
+  --multi gpu use (caution no dependencies) 
   features = makeDataParallel(features,nGPU)
   model:add(features):add(classifier)  
   
-  --architecture 2 addition
   model:add(nn.Linear(4096,1000))
   model:add(nn.ReLU(true))
-  
-  --3rd archtiecture
   model:add (nn.Linear(1000,20))
 
   -- L2 normalize the activations
@@ -78,15 +74,19 @@ function getPretrainedModel(nGPU)
 end
 
 --make the model parallelizable
---i.e features (to be parallel) and classifier (not parallel) 
+--i.e net (to be parallel) and classifier (non parallel) 
 function modelParallel(net)
+  --classifier: is the latter half which is non parallelized , add the parallelizable modules here
   local classifier = nn.Sequential() ; 
   for i=40,45 do classifier:add(net.modules[i]) ; end
+
+  --net: first half which is parallelized , remove the classifier modules 
   j=45 ; for i=1,6 do net:remove(j) ; j=j-1; end
  return net,classifier
 end
 
-model = getPretrainedModel(nGPU)
+--run the model in multi gpu's if allowed
+model = getPretrainedModel(opt.nGPU)
 print('=> Model')
 print(model)
 
